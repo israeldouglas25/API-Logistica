@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.logistica.domain.exception.DomainException;
+import br.com.logistica.domain.exception.EntidadeNaoEncontradaException;
 import br.com.logistica.domain.model.Cliente;
 import br.com.logistica.repository.ClienteRepository;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,10 @@ public class ClienteService {
 	
 	@Transactional
 	public void delete(Long id) {
+		if (!clienteRepository.existsById(id)) {
+			throw new EntidadeNaoEncontradaException("Cadastro não existe!");
+		}
+		
 		clienteRepository.deleteById(id);
 	}
 

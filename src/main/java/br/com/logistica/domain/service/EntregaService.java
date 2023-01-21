@@ -43,5 +43,14 @@ public class EntregaService {
 		
 		entregaRepository.save(entrega);
 	}
+	
+	@Transactional
+	public void delete(Long id) {
+		if(!entregaRepository.existsById(id)) {
+			throw new EntidadeNaoEncontradaException("Entrega não existe");
+		}
+		
+		entregaRepository.deleteById(id);
+	}
 
 }
